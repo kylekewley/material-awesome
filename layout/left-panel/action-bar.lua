@@ -45,7 +45,7 @@ return function(screen, panel, action_bar_width)
         1,
         nil,
         function()
-          panel:toggle(true)
+          panel:toggle()
         end
       )
     )
