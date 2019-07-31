@@ -13,11 +13,6 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local icons = require('theme.icons')
 
--- Clock / Calendar 24h format
-local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 11">%H:%M %m/%d</span>')
-local clock_widget = wibox.container.margin(textclock, dpi(8), dpi(8), dpi(2), dpi(2))
-
-
 
 -- Create an imagebox widget which will contains an icon indicating which layout we're using.
 -- We need one layoutbox per screen.
@@ -80,6 +75,7 @@ local TopPanel = function(s, barHeight, menuWidth)
   )
 
   local leftMenu = left_menu(s, barHeight, menuWidth)
+  panel.leftMenu = leftMenu
 
     -- Hamburger menu icon
     local menu_icon =
@@ -113,6 +109,15 @@ local TopPanel = function(s, barHeight, menuWidth)
   )
   )
   )
+
+  -- Clock / Calendar 24h format
+  local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 11">%m/%d %H:%M</span>')
+  local clock_widget = wibox.container.margin(textclock, dpi(8), dpi(8), dpi(2), dpi(2))
+  local month_calendar = awful.widget.calendar_popup.month({
+      screen = s,
+  })
+  month_calendar:attach(textclock)
+
 
   panel:struts(
   {

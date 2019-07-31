@@ -12,8 +12,10 @@ local globalKeys =
   -- Hotkeys
   awful.key({modkey}, 'F1', hotkeys_popup.show_help, {description = 'show help', group = 'awesome'}),
   -- Tag browsing
-  awful.key({modkey}, 'k', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
-  awful.key({modkey}, 'j', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
+  awful.key({modkey}, 'h', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
+  awful.key({modkey}, 'l', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
+  awful.key({modkey}, 'Left', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
+  awful.key({modkey}, 'Right', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
   awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
   -- Default client focus
   awful.key(
@@ -36,7 +38,7 @@ local globalKeys =
     {modkey},
     'e',
     function()
-      _G.screen.primary.left_panel:toggle(true)
+      _G.screen.primary.top_panel.leftMenu:toggle(true)
     end,
     {description = 'show main menu', group = 'awesome'}
   ),
@@ -54,7 +56,7 @@ local globalKeys =
   ),
   -- Programms
   awful.key(
-    {modkey},
+    {modkey, 'Shift'},
     'l',
     function()
       awful.spawn(apps.default.lock)
@@ -72,6 +74,13 @@ local globalKeys =
     'b',
     function()
       awful.spawn(apps.default.browser)
+    end
+  ),
+  awful.key(
+    {'Control', modkey},
+    'n',
+    function()
+      awful.spawn(apps.default.browser .. ' -incognito')
     end
   ),
   -- Standard program
@@ -148,19 +157,6 @@ local globalKeys =
       awful.layout.inc(-1)
     end,
     {description = 'select previous', group = 'layout'}
-  ),
-  awful.key(
-    {modkey, 'Control'},
-    'n',
-    function()
-      local c = awful.client.restore()
-      -- Focus restored client
-      if c then
-        _G.client.focus = c
-        c:raise()
-      end
-    end,
-    {description = 'restore minimized', group = 'client'}
   ),
   -- Dropdown application
   awful.key(
