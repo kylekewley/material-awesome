@@ -131,7 +131,8 @@ local TopPanel = function(s, barHeight, menuWidth)
     {
         layout = wibox.layout.fixed.horizontal,
         home_button,
-      TaskList(s)
+        wibox.container.margin(s.mypromptbox, dpi(8), dpi(8)),
+        TaskList(s)
     },
     TagList(s),
     {

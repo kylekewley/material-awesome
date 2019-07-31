@@ -9,6 +9,7 @@ local leftPanelWidth = 400
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(
   function(s)
+    s.mypromptbox = awful.widget.prompt()
     s.top_panel = top_panel(s, topBarHeight, leftPanelWidth)
   end
 )
