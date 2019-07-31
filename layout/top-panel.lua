@@ -11,26 +11,6 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local icons = require('theme.icons')
 
-local add_button = mat_icon_button(mat_icon(icons.plus, dpi(24)))
-add_button:buttons(
-  gears.table.join(
-    awful.button(
-      {},
-      1,
-      nil,
-      function()
-        awful.spawn(
-          awful.screen.focused().selected_tag.defaultApp,
-          {
-            tag = _G.mouse.screen.selected_tag,
-            placement = awful.placement.bottom_right
-          }
-        )
-      end
-    )
-  )
-)
-
 -- Create an imagebox widget which will contains an icon indicating which layout we're using.
 -- We need one layoutbox per screen.
 local LayoutBox = function(s)
@@ -70,17 +50,16 @@ local LayoutBox = function(s)
   return layoutBox
 end
 
-local TopPanel = function(s, offset)
-  local offsetx = 0
-  if offset == true then
-    offsetx = dpi(48)
-  end
+local TopPanel = function(s, barHeight, offset)
+  local offsetx = dpi(offset)
+  local height = dpi(barHeight)
+
   local panel =
     wibox(
     {
       ontop = true,
       screen = s,
-      height = dpi(48),
+      height = height,
       width = s.geometry.width - offsetx,
       x = s.geometry.x + offsetx,
       y = s.geometry.y,
@@ -88,14 +67,14 @@ local TopPanel = function(s, offset)
       bg = beautiful.background.hue_800,
       fg = beautiful.fg_normal,
       struts = {
-        top = dpi(48)
+        top = height
       }
     }
   )
 
   panel:struts(
     {
-      top = dpi(48)
+      top = height
     }
   )
 
@@ -104,8 +83,7 @@ local TopPanel = function(s, offset)
     {
       layout = wibox.layout.fixed.horizontal,
       -- Create a taglist widget
-      TaskList(s),
-      add_button
+      TaskList(s)
     },
     nil,
     {

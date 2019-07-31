@@ -2,17 +2,21 @@ local awful = require('awful')
 local left_panel = require('layout.left-panel')
 local top_panel = require('layout.top-panel')
 
+local topBarHeight = 24
+local leftBarWidth = 48
+local leftPanelWidth = 400
+
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(
   function(s)
     if s.index == 1 then
       -- Create the left_panel
-      s.left_panel = left_panel(s)
+      s.left_panel = left_panel(s, leftBarWidth, leftPanelWidth)
       -- Create the Top bar
-      s.top_panel = top_panel(s, true)
+      s.top_panel = top_panel(s, topBarHeight, leftBarWidth)
     else
       -- Create the Top bar
-      s.top_panel = top_panel(s, false)
+      s.top_panel = top_panel(s, topBarHeight, leftBarWidth)
     end
   end
 )

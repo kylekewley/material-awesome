@@ -4,9 +4,9 @@ local wibox = require('wibox')
 local apps = require('configuration.apps')
 local dpi = require('beautiful').xresources.apply_dpi
 
-local left_panel = function(screen)
-  local action_bar_width = dpi(48)
-  local panel_content_width = dpi(400)
+local left_panel = function(screen, width, panelWidth)
+  local action_bar_width = dpi(width)
+  local panel_content_width = dpi(panelWidth)
 
   local panel =
     wibox {

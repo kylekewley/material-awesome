@@ -11,6 +11,7 @@
 local awful = require('awful')
 local watch = require('awful.widget.watch')
 local wibox = require('wibox')
+local naughty = require('naughty')
 local clickable_container = require('widget.material.clickable-container')
 local gears = require('gears')
 local dpi = require('beautiful').xresources.apply_dpi
@@ -82,7 +83,7 @@ local function grabText()
 end
 
 watch(
-  "awk 'NR==3 {printf \"%3.0f\" ,($3/70)*100}' /proc/net/wireless",
+  "bash -c \"sudo /bin/cat /proc/net/wireless | awk 'NR==3 {printf \\\"%3.0f\\\", ($3/70)*100}'\"" ,
   5,
   function(_, stdout)
     local widgetIconName = 'wifi-strength'
