@@ -67,6 +67,13 @@ local globalKeys =
       awful.util.spawn_with_shell('maim -s | xclip -selection clipboard -t image/png')
     end
   ),
+  awful.key(
+    {'Control', modkey},
+    'b',
+    function()
+      awful.spawn(apps.default.browser)
+    end
+  ),
   -- Standard program
   awful.key(
     {modkey},
