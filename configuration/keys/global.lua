@@ -97,14 +97,14 @@ local globalKeys =
     end
   ),
   awful.key(
-    {'Control', modkey},
+    {'Control', 'Shift'},
     'b',
     function()
       awful.spawn(apps.default.browser)
     end
   ),
   awful.key(
-    {'Control', modkey},
+    {'Control', 'Shift'},
     'n',
     function()
       awful.spawn(apps.default.browser .. ' -incognito')
