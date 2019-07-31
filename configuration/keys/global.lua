@@ -54,6 +54,22 @@ local globalKeys =
     end,
     {description = 'go back', group = 'client'}
   ),
+
+  awful.key({ modkey, 'Shift'}, 
+  'o',
+  function ()
+      awful.screen.focus_relative(1)
+  end,
+  {description = 'focus next screen', group = 'client'}
+  ),
+
+  awful.key({ modkey }, 
+  'o',
+  function ()
+      _G.client.focus:move_to_screen()
+  end,
+  {description = 'move to screen', group = 'client'}
+  ),
   -- Programms
   awful.key(
     {modkey, 'Shift'},
@@ -311,6 +327,7 @@ for i = 1, 9 do
       end,
       descr_move
     ),
+
     -- Toggle tag on focused client.
     awful.key(
       {modkey, 'Control', 'Shift'},
