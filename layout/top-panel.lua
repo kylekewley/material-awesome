@@ -6,10 +6,18 @@ local gears = require('gears')
 local clickable_container = require('widget.material.clickable-container')
 local mat_icon_button = require('widget.material.icon-button')
 local mat_icon = require('widget.material.icon')
+local left_menu = require('layout.left-panel')
+local TagList = require('widget.tag-list')
 
 local dpi = require('beautiful').xresources.apply_dpi
 
 local icons = require('theme.icons')
+
+-- Clock / Calendar 24h format
+local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 11">%H:%M %m/%d</span>')
+local clock_widget = wibox.container.margin(textclock, dpi(8), dpi(8), dpi(2), dpi(2))
+
+
 
 -- Create an imagebox widget which will contains an icon indicating which layout we're using.
 -- We need one layoutbox per screen.
@@ -50,8 +58,7 @@ local LayoutBox = function(s)
   return layoutBox
 end
 
-local TopPanel = function(s, barHeight, offset)
-  local offsetx = dpi(offset)
+local TopPanel = function(s, barHeight, menuWidth)
   local height = dpi(barHeight)
 
   local panel =
@@ -60,8 +67,8 @@ local TopPanel = function(s, barHeight, offset)
       ontop = true,
       screen = s,
       height = height,
-      width = s.geometry.width - offsetx,
-      x = s.geometry.x + offsetx,
+      width = s.geometry.width,
+      x = s.geometry.x,
       y = s.geometry.y,
       stretch = false,
       bg = beautiful.background.hue_800,
@@ -72,24 +79,68 @@ local TopPanel = function(s, barHeight, offset)
     }
   )
 
+  local leftMenu = left_menu(s, barHeight, menuWidth)
+
+    -- Hamburger menu icon
+    local menu_icon =
+    wibox.widget {
+        icon = icons.menu,
+        size = height,
+        widget = mat_icon
+    }
+
+
+  -- Hamburger menu button
+  local home_button =
+  wibox.widget {
+      wibox.widget {
+          menu_icon,
+          widget = clickable_container
+      },
+      bg = beautiful.primary.hue_500,
+      widget = wibox.container.background
+  }
+
+  home_button:buttons(
+  gears.table.join(
+  awful.button(
+  {},
+  1,
+  nil,
+  function()
+      leftMenu:toggle()
+  end
+  )
+  )
+  )
+
   panel:struts(
-    {
+  {
       top = height
     }
   )
 
   panel:setup {
     layout = wibox.layout.align.horizontal,
+    expand = "none",
     {
-      layout = wibox.layout.fixed.horizontal,
-      -- Create a taglist widget
+        layout = wibox.layout.fixed.horizontal,
+        home_button,
       TaskList(s)
     },
-    nil,
+    TagList(s),
     {
       layout = wibox.layout.fixed.horizontal,
+
+      require('widget.package-updater'),
+      require('widget.wifi'),
+      require('widget.battery'),
+
+      -- Clock
+      clock_widget,
+
       -- Layout box
-      LayoutBox(s)
+      LayoutBox(s),
     }
   }
 

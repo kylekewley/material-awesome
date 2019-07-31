@@ -5,7 +5,7 @@ local apps = require('configuration.apps')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local left_panel = function(screen, width, panelWidth)
-  local action_bar_width = dpi(width)
+  local action_bar_width = dpi(400)
   local panel_content_width = dpi(panelWidth)
 
   local panel =
@@ -22,17 +22,11 @@ local left_panel = function(screen, width, panelWidth)
 
   panel.opened = false
 
-  panel:struts(
-    {
-      left = action_bar_width
-    }
-  )
-
   local backdrop =
     wibox {
     ontop = true,
     screen = screen,
-    bg = '#00000000',
+    bg = '#00000022',
     type = 'dock',
     x = screen.geometry.x,
     y = screen.geometry.y,
@@ -54,20 +48,19 @@ local left_panel = function(screen, width, panelWidth)
   end
 
   local openPanel = function(should_run_rofi)
-    panel.width = action_bar_width + panel_content_width
+    panel.width = panel_content_width
     backdrop.visible = true
-    panel.visible = false
     panel.visible = true
-    panel:get_children_by_id('panel_content')[1].visible = true
+
     if should_run_rofi then
       panel:run_rofi()
     end
+
     panel:emit_signal('opened')
   end
 
   local closePanel = function()
-    panel.width = action_bar_width
-    panel:get_children_by_id('panel_content')[1].visible = false
+    panel.visible = false
     backdrop.visible = false
     panel:emit_signal('closed')
   end
@@ -100,14 +93,11 @@ local left_panel = function(screen, width, panelWidth)
       id = 'panel_content',
       bg = beautiful.background.hue_900,
       widget = wibox.container.background,
-      visible = false,
-      forced_width = panel_content_width,
       {
         require('layout.left-panel.dashboard')(screen, panel),
         layout = wibox.layout.stack
       }
     },
-    require('layout.left-panel.action-bar')(screen, panel, action_bar_width)
   }
   return panel
 end

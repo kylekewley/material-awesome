@@ -23,7 +23,7 @@ local awesome_overrides =
   theme.dir = os.getenv('HOME') .. '/.config/awesome/theme'
 
   theme.icons = theme.dir .. '/icons/'
-  theme.wallpaper = theme.dir .. '/wallpapers/wall.png'
+  theme.wallpaper = theme.dir .. '/wallpapers/sunrise.png'
   theme.font = 'Roboto medium 10'
   theme.title_font = 'Roboto medium 14'
 

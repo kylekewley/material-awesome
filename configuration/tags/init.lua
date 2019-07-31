@@ -6,19 +6,13 @@ local tags = {
   {
     icon = icons.chrome,
     type = 'chrome',
-    defaultApp = 'google-chrome-beta',
+    defaultApp = 'chromium',
     screen = 1
   },
   {
     icon = icons.code,
     type = 'code',
     defaultApp = 'code',
-    screen = 1
-  },
-  {
-    icon = icons.social,
-    type = 'social',
-    defaultApp = 'station',
     screen = 1
   },
   {
@@ -30,13 +24,7 @@ local tags = {
   {
     icon = icons.music,
     type = 'music',
-    defaultApp = 'youtube-music',
-    screen = 1
-  },
-  {
-    icon = icons.game,
-    type = 'game',
-    defaultApp = '',
+    defaultApp = 'mdp',
     screen = 1
   },
   {
@@ -61,8 +49,8 @@ awful.screen.connect_for_each_screen(
           icon = tag.icon,
           icon_only = true,
           layout = awful.layout.suit.tile,
-          gap_single_client = false,
-          gap = 4,
+          gap_single_client = true,
+          gap = 2,
           screen = s,
           defaultApp = tag.defaultApp,
           selected = i == 1

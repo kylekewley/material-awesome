@@ -9,15 +9,7 @@ local leftPanelWidth = 400
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(
   function(s)
-    if s.index == 1 then
-      -- Create the left_panel
-      s.left_panel = left_panel(s, leftBarWidth, leftPanelWidth)
-      -- Create the Top bar
-      s.top_panel = top_panel(s, topBarHeight, leftBarWidth)
-    else
-      -- Create the Top bar
-      s.top_panel = top_panel(s, topBarHeight, leftBarWidth)
-    end
+    s.top_panel = top_panel(s, topBarHeight, leftPanelWidth)
   end
 )
 
@@ -28,9 +20,6 @@ function updateBarsVisibility()
       local fullscreen = s.selected_tag.fullscreenMode
       -- Order matter here for shadow
       s.top_panel.visible = not fullscreen
-      if s.left_panel then
-        s.left_panel.visible = not fullscreen
-      end
     end
   end
 end
