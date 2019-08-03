@@ -140,7 +140,6 @@ local TopPanel = function(s, barHeight, menuWidth)
 
       require('widget.package-updater'),
       require('widget.wifi'),
-      require('widget.battery'),
 
       -- Clock
       clock_widget,

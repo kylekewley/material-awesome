@@ -83,7 +83,7 @@ local function grabText()
 end
 
 watch(
-  "bash -c \"sudo /bin/cat /proc/net/wireless | awk 'NR==3 {printf \\\"%3.0f\\\", ($3/70)*100}'\"" ,
+  "bash -c \"cat /proc/net/wireless | awk 'NR==3 {printf \\\"%3.0f\\\", ($3/70)*100}'\"" ,
   5,
   function(_, stdout)
     local widgetIconName = 'wifi-strength'
