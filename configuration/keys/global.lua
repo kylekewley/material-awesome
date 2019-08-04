@@ -107,7 +107,7 @@ local globalKeys =
     {'Control', 'Shift'},
     'n',
     function()
-      awful.spawn(apps.default.browser .. ' -incognito')
+      awful.spawn(apps.default.browser .. ' -private-window')
     end
   ),
   -- Standard program
