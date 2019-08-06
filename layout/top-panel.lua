@@ -81,7 +81,7 @@ local TopPanel = function(s, barHeight, menuWidth)
     local menu_icon =
     wibox.widget {
         icon = icons.menu,
-        size = height,
+        size = dpi(barHeight-4),
         widget = mat_icon
     }
 
@@ -93,7 +93,6 @@ local TopPanel = function(s, barHeight, menuWidth)
           menu_icon,
           widget = clickable_container
       },
-      bg = beautiful.primary.hue_500,
       widget = wibox.container.background
   }
 

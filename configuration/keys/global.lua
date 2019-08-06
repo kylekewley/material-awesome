@@ -83,7 +83,7 @@ local globalKeys =
   ),
   -- Programms
   awful.key(
-    {modkey, 'Shift'},
+    {'Control', 'Shift'},
     'l',
     function()
       awful.spawn(apps.default.lock)
