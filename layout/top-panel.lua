@@ -81,7 +81,7 @@ local TopPanel = function(s, barHeight, menuWidth)
     local menu_icon =
     wibox.widget {
         icon = icons.menu,
-        size = dpi(barHeight-4),
+        size = height,
         widget = mat_icon
     }
 
@@ -93,6 +93,7 @@ local TopPanel = function(s, barHeight, menuWidth)
           menu_icon,
           widget = clickable_container
       },
+      bg = beautiful.primary.hue_500,
       widget = wibox.container.background
   }
 
@@ -114,6 +115,7 @@ local TopPanel = function(s, barHeight, menuWidth)
   local clock_widget = wibox.container.margin(textclock, dpi(8), dpi(8), dpi(2), dpi(2))
   local month_calendar = awful.widget.calendar_popup.month({
       screen = s,
+      start_sunday = true,
   })
   month_calendar:attach(textclock)
 
