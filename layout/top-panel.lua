@@ -119,7 +119,6 @@ local TopPanel = function(s, barHeight, menuWidth)
   })
   month_calendar:attach(textclock)
 
-
   panel:struts(
   {
       top = height
@@ -139,6 +138,7 @@ local TopPanel = function(s, barHeight, menuWidth)
     {
       layout = wibox.layout.fixed.horizontal,
 
+      wibox.widget.systray(),
       require('widget.package-updater'),
       require('widget.wifi'),
 
