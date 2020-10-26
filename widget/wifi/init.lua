@@ -22,7 +22,7 @@ local dpi = require('beautiful').xresources.apply_dpi
 
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/wifi/icons/'
-local interface = 'wlp2s0'
+local interface = 'wlan0'
 local connected = false
 local essid = 'N/A'
 
@@ -44,7 +44,7 @@ widget_button:buttons(
       1,
       nil,
       function()
-        awful.spawn('wicd-client -n')
+        awful.spawn('cmst -d -M')
       end
     )
   )
@@ -71,9 +71,9 @@ awful.tooltip(
 local function grabText()
   if connected then
     awful.spawn.easy_async(
-      'iw dev ' .. interface .. ' link',
+    "bash -c \"iwctl station " .. interface .. " show | awk 'match($0, /network[ \\t]+(.*)\\s+$/, arr) { print arr[1] }' | sed 's/ *$//'\"",
       function(stdout)
-        essid = stdout:match('SSID:(.-)\n')
+        essid = stdout
         if (essid == nil) then
           essid = 'N/A'
         end
